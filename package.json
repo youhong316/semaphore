@@ -5,8 +5,7 @@
   "main": "bin/semaphore.js",
   "scripts": {
     "test": "mocha -R spec",
-    "start": "node bin/semaphore.js",
-    "prepublish": "./node_modules/.bin/bower --allow-root install"
+    "start": "node bin/semaphore.js"
   },
   "repository": {
     "type": "git",
