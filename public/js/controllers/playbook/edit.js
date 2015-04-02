@@ -18,7 +18,7 @@ define([
 			$scope.playbook.save()
 			.success(function (data) {
 				playbooks.getPlaybooks(function () {
-					$state.transitionTo('playbook.view', {
+					$state.transitionTo('playbook.tasks', {
 						playbook_id: data._id
 					});
 				});

@@ -1,13 +1,12 @@
-FROM iojs:onbuild
+FROM iojs:1.6.3
 
 ENV NODE_ENV production
 
-ADD . /srv/semaphore
-WORKDIR /srv/semaphore
-
-RUN rm -f node_modules/
+ADD . /usr/src/app/
+WORKDIR /usr/src/app/
 
 RUN npm install
-CMD ["node", "/srv/semaphore/bin/semaphore"]
+RUN bower install
+CMD ["node", "/usr/src/app/bin/semaphore"]
 
 EXPOSE 80
