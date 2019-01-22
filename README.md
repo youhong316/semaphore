@@ -1,101 +1,49 @@
-# semaphore
+![semaphore](web/public/img/logo.png)
 
-Open Source Alternative to Ansible Tower
+[![Circle CI](https://circleci.com/gh/ansible-semaphore/semaphore.svg?style=svg&circle-token=3702872acf2bec629017fa7dd99fdbea56aef7df)](https://circleci.com/gh/ansible-semaphore/semaphore)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/89e0129c6ba64fe2b1ebe983f72a4eff)](https://www.codacy.com/app/ansible-semaphore/semaphore?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ansible-semaphore/semaphore&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/89e0129c6ba64fe2b1ebe983f72a4eff)](https://www.codacy.com/app/ansible-semaphore/semaphore?utm_source=github.com&utm_medium=referral&utm_content=ansible-semaphore/semaphore&utm_campaign=Badge_Coverage)
+[![semaphore on discord](https://img.shields.io/badge/discord-semaphore%20community-738bd7.svg)](https://discord.gg/ZW7Qu6a)
 
-![screenshot](public/img/screenshot.png)
+- [Releases](https://github.com/ansible-semaphore/semaphore/releases)
+- [Docker Hub](https://hub.docker.com/r/ansiblesemaphore/semaphore/)
+- [Install Instructions](https://github.com/ansible-semaphore/semaphore/wiki/Installation)
+- [Troubleshooting](https://github.com/ansible-semaphore/semaphore/wiki/Troubleshooting)
+- [Contribution Guide](https://github.com/ansible-semaphore/semaphore/blob/develop/CONTRIBUTING.md)
+- [Roadmap](https://github.com/ansible-semaphore/semaphore/projects)
+- [UI Walkthrough](https://blog.strangeman.info/ansible/2017/08/05/semaphore-ui-guide.html) (external blog)
 
-## Features
+## Release Signing
 
-The basics of Ansible Tower, but in addition:
+All releases after 2.4.1 are signed with the gpg public key
+`9B25 8A9C 32B9 7E50 E753  3575 DE95 8D8F 20C7 845F`
 
-- [x] Fast, Simple interface (not having to submit a million forms to get something simple done)
-- [x] Task output is streamed live via websocket
-- [x] Create inventories per playbook
-- [x] Add rsa keys (to authenticate git repositories)
-- [x] Run playbooks against specified hosts
-- [x] Multiple Users support
+## Contributing
 
-## Docker quickstart
+PR's & UX reviews are welcome!
 
-### Run redis
-
-```
-docker run -d \
-  --name=redisio \
-  redis
-```
-
-### Run mongodb
-
-```
-docker run -d \
-  --name=mongodb \
-  -p 127.0.0.1:27017:27017 \
-  mongo
-```
-
-### Run semaphore
-
-```
-docker run -d \
-  --name=semaphore \
-  --restart=always \
-  --link redisio:redis \
-  --link mongodb:mongo \
-  -e MONGODB_URL="mongodb://mongo/semaphore" \
-  -e REDIS_HOST="redis" \
-  -p 80:80 \
-  castawaylabs/semaphore
-```
-
-## Development
-
-1. Install VirtualBox & Vagrant
-2. Run `vagrant plugin install gatling-rsync-auto`
-3. Run `vagrant up` to start the vagrant box
-4. Run `vagrant gatling-rsync-auto` to synchronise changes from your local machine to vagrant
-
-### Running semaphore inside vagrant
-
-1. `vagrant ssh`, `cd /opt/semaphore`
-2. `npm install`
-3. `bower install`
-4. `npm install -g nodemon`
-5. `nodemon bin/semaphore`
-
-## Initial Login
-
-```
-Email:			'admin@semaphore.local'
-Password:		'CastawayLabs'
-```
-
-## Environment Variables
-
-Use these variables to override the config.
-
-| Variable Name | Description            | Default Value                   |
-| ------------- | ---------------------- | ------------------------------- |
-| PORT          | Web Port               | `80`                            |
-| REDIS_PORT    | Redis Port             | `6379`                          |
-| REDIS_HOST    | Redis Hostname         | `127.0.0.1`                     |
-| REDIS_KEY     | Redis auth key         |                                 |
-| BUGSNAG_KEY   | Bugsnag API key        |                                 |
-| SMTP_USER     | Mandrill smtp username |                                 |
-| SMTP_PASS     | Mandrill smtp password |                                 |
-| MONGODB_URL   | Mongodb URL            | `mongodb://127.0.0.1/semaphore` |
-
-## Vision and goals for v1
-
-- Be able to specify environment information per playbook / per task
-- Schedule jobs
-- Email alerts
-- Multiple user support
-
-## Articles
-
-- http://code-complete.com/code/?p=40
+Please follow the [contribution](https://github.com/ansible-semaphore/semaphore/blob/develop/CONTRIBUTING.md) guide. Any questions, please open an issue.
 
 ## License
 
-MIT
+MIT License
+
+Copyright (c) 2016 Castaway Consulting LLC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

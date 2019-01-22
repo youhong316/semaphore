@@ -1,0 +1,72 @@
+# Goreleaser configuration
+# for building binaries and packages for distributions and releasing on github
+dist: bin
+
+git:
+  short_hash: true
+
+builds:
+  - binary: semaphore
+    main: ./cli/main.go
+    goos:
+      - windows
+      - darwin
+      - linux
+      - freebsd
+      - openbsd
+      - netbsd
+    goarch:
+      - amd64
+      - 386
+      - arm
+      - arm64
+    ignore:
+      - goos: darwin
+        goarch: 386
+    hooks:
+      pre: task compile
+
+archive:
+  format_overrides:
+    - goos: windows
+      format: zip
+  files:
+    - LICENSE
+
+sign:
+   artifacts: checksum
+   # gpg --sign -u "9B25 8A9C 32B9 7E50 E753  3575 DE95 8D8F 20C7 845F" --pinentry-mode loopback --yes --batch --passphrase "${GPG_PASS}" --output ${signature} --detach-sign "${artifact}"
+   args: ["-u", "9B25 8A9C 32B9 7E50 E753  3575 DE95 8D8F 20C7 845F", "--pinentry-mode", "loopback", "--yes", "--batch", "--output", "${signature}", "--detach-sign", "${artifact}"]
+
+# Start the snapshot name with a numerical value
+# so it does not need to be force installed
+snapshot:
+  name_template: "{{ .Timestamp }}-{{ .Commit }}-SNAPSHOT"
+
+nfpm:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+  vendor: Castaway Consulting LLC
+  homepage: https://github.com/ansible-semaphore/semaphore
+  maintainer: Castaway Consulting LLC <support@castawaylabs.com>
+  description: Open Source alternative to Ansible Tower
+  license: MIT
+
+  formats:
+    - deb
+    - rpm
+
+  # Packages your package depends on.
+  dependencies:
+    - git
+
+  suggests:
+    - ansible
+
+  # install binary in /usr/bin
+  bindir: /usr/bin
+
+release:
+  # Do not auto publish release
+  draft: true
+  name_template: "{{.Tag}}"
